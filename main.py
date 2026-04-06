@@ -1,38 +1,42 @@
+# Simon says
+
 import pygame
 import sys
 import random
 
-# Inisialisasi pygame
+# inisialisasi pygame
 pygame.init()
 
-# Ukuran layar
+# ukuran layar
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tebak Superhero")
 
-# Warna
+# warna
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 128, 0)
 
-# Font
+# font
 font = pygame.font.SysFont(None, 48)
 
-# Daftar superhero (nama + file gambar)
+# daftar superhero (nama + file gambar)
 superheroes = [
-    ("Batman", "batman.png"),
-    ("Superman", "superman.png"),
-    ("Iron Man", "ironman.png"),
-    ("Spider-Man", "spiderman.png"),
+    ("Kaya raya yg baik hati", "heroes/batman.png"),
+    ("Menyamar menjadi jurnalis", "heroes/superman.png"),
+    ("Millioner pake baju besi", "heroes/ironman.png"),
+    ("Merayap di dinding", "heroes/spiderman.png"),
 ]
 
-# Load gambar
+# load gambar
 images = []
 for name, file in superheroes:
     img = pygame.image.load(file)
     img = pygame.transform.scale(img, (150, 200))  # resize biar seragam
     images.append((name, img))
 
-# Pilih jawaban benar secara acak
+# pilih jawaban benar secara acak
 correct_superhero = random.choice(superheroes)[0]
 
 
@@ -44,12 +48,13 @@ def draw_text(text, x, y, color=BLACK):
 def main():
     running = True
     result_message = ""
+    result_color = BLACK
 
     while running:
         screen.fill(WHITE)
 
         # Tampilkan pertanyaan
-        draw_text(f"Tebak: {correct_superhero}", 50, 50)
+        draw_text(f"Cluenya: {correct_superhero}", 50, 50)
 
         # Tampilkan gambar berjajar
         spacing = 50
@@ -63,13 +68,13 @@ def main():
             screen.blit(img, (x_pos, y_pos))
             rects.append((rect, name))
 
-        # Tampilkan hasil jika ada
+        # tampilkan hasil jika ada
         if result_message:
-            draw_text(result_message, 50, 500, (0, 128, 0))
+            draw_text(result_message, 50, 500, result_color)
 
         pygame.display.flip()
 
-        # Event handling
+        # event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -81,8 +86,10 @@ def main():
                     if rect.collidepoint(mouse_pos):
                         if name == correct_superhero:
                             result_message = "Benar! Kamu menebak dengan tepat!"
+                            result_color = GREEN
                         else:
                             result_message = f"Salah! Itu {name}."
+                            result_color = RED
 
 
 if __name__ == "__main__":
