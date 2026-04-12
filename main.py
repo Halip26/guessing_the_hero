@@ -27,7 +27,7 @@ superheroes = [
     ("Menyamar menjadi jurnalis", "heroes/superman.png"),
     ("Millioner pake baju besi", "heroes/ironman.png"),
     ("Merayap di dinding", "heroes/spiderman.png"),
-    ("Dewa petir dari khayangan", "heroes/thor.png"), 
+    ("Dewa petir dari khayangan", "heroes/thor.png"),
 ]
 
 # load gambar
@@ -38,13 +38,14 @@ for name, file in superheroes:
     images.append((name, img))
 
 
-def draw_text(text, x, y, color=BLACK):
-    label = font.render(text, True, color)
+def draw_text(text, x, y, size, color=BLACK):
+    label = pygame.font.SysFont(None, size).render(text, True, color)
     screen.blit(label, (x, y))
 
 
 def main():
     correct_superhero = random.choice(superheroes)[0]
+    clue_number = 1
     running = True
     result_message = ""
     result_color = BLACK
@@ -53,7 +54,7 @@ def main():
         screen.fill(WHITE)
 
         # Tampilkan pertanyaan
-        draw_text(f"Cluenya: {correct_superhero}", 50, 50)
+        draw_text(f"Cluenya no. {clue_number}: {correct_superhero}", 50, 50, 36)
 
         # Tampilkan gambar berjajar
         spacing = 10
@@ -69,7 +70,7 @@ def main():
 
         # tampilkan hasil jika ada
         if result_message:
-            draw_text(result_message, 50, 500, result_color)
+            draw_text(result_message, 50, 500, 40, result_color)
 
         pygame.display.flip()
 
@@ -86,8 +87,9 @@ def main():
                         if name == correct_superhero:
                             result_message = "Benar! Kamu menebak dengan tepat!"
                             result_color = GREEN
-                            # pilih superhero baru untuk ronde berikutnya
+                            # Reshuffle clue
                             correct_superhero = random.choice(superheroes)[0]
+                            clue_number += 1
                         else:
                             result_message = f"Salah! Itu {name}."
                             result_color = RED
