@@ -37,9 +37,6 @@ for name, file in superheroes:
     img = pygame.transform.scale(img, (100, 150))  # resize biar seragam
     images.append((name, img))
 
-# pilih jawaban benar secara acak
-correct_superhero = random.choice(superheroes)[0]
-
 
 def draw_text(text, x, y, color=BLACK):
     label = font.render(text, True, color)
@@ -47,6 +44,7 @@ def draw_text(text, x, y, color=BLACK):
 
 
 def main():
+    correct_superhero = random.choice(superheroes)[0]
     running = True
     result_message = ""
     result_color = BLACK
@@ -88,6 +86,8 @@ def main():
                         if name == correct_superhero:
                             result_message = "Benar! Kamu menebak dengan tepat!"
                             result_color = GREEN
+                            # pilih superhero baru untuk ronde berikutnya
+                            correct_superhero = random.choice(superheroes)[0]
                         else:
                             result_message = f"Salah! Itu {name}."
                             result_color = RED
