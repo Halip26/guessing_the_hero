@@ -27,13 +27,14 @@ superheroes = [
     ("Menyamar menjadi jurnalis", "heroes/superman.png"),
     ("Millioner pake baju besi", "heroes/ironman.png"),
     ("Merayap di dinding", "heroes/spiderman.png"),
+    ("Dewa petir dari khayangan", "heroes/thor.png"), 
 ]
 
 # load gambar
 images = []
 for name, file in superheroes:
     img = pygame.image.load(file)
-    img = pygame.transform.scale(img, (150, 200))  # resize biar seragam
+    img = pygame.transform.scale(img, (100, 150))  # resize biar seragam
     images.append((name, img))
 
 # pilih jawaban benar secara acak
@@ -57,8 +58,8 @@ def main():
         draw_text(f"Cluenya: {correct_superhero}", 50, 50)
 
         # Tampilkan gambar berjajar
-        spacing = 50
-        start_x = 50
+        spacing = 10
+        start_x = 20
         y_pos = 200
         rects = []
 
